@@ -1,10 +1,14 @@
 public class Chamado {
+    // O modificador 'static' faz com que essa variável seja compartilhada entre todos os chamados
+    private static int contadorId = 1;
+
     private int id;
     private String descricao;
     private boolean resolvido;
 
-    public Chamado(int id, String descricao) {
-        this.id = id;
+    // Construtor não pede mais o ID
+    public Chamado(String descricao) {
+        this.id = contadorId++; // Atribui o valor atual e já soma +1 para o próximo
         this.descricao = descricao;
         this.resolvido = false;
     }
@@ -13,15 +17,14 @@ public class Chamado {
     public String getDescricao() { return descricao; }
     public boolean isResolvido() { return resolvido; }
 
-    // Retorna uma String em vez de usar System.out.println
     public String resolver() {
         this.resolvido = true;
         return "Chamado #" + this.id + " foi marcado como resolvido!";
     }
 
-    // Retorna os detalhes formatados para a interface
     public String obterDetalhes() {
-        String status = this.resolvido ? "Resolvido" : "Pendente";
-        return "ID: " + this.id + " | Descrição: " + this.descricao + " | Status: " + status;
+        String status = this.resolvido ? "[RESOLVIDO]" : "[PENDENTE]";
+        return "🎫 CHAMADO #" + this.id + " " + status + "\n" +
+                "   Descrição: " + this.descricao;
     }
 }

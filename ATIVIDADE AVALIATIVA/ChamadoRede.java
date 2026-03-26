@@ -1,22 +1,27 @@
 public class ChamadoRede extends Chamado {
     private String ipAfetado;
+    private String diagnostico;
 
-    public ChamadoRede(int id, String descricao, String ipAfetado) {
-        super(id, descricao);
+    // Construtor sem o ID
+    public ChamadoRede(String descricao, String ipAfetado) {
+        super(descricao); // Repassa apenas a descrição para a classe pai
         this.ipAfetado = ipAfetado;
+        this.diagnostico = "Aguardando análise técnica...";
     }
 
     public String getIpAfetado() { return ipAfetado; }
+    public String getDiagnostico() { return diagnostico; }
 
-    // Sobrecarga: Retorna a String do diagnóstico
     public String resolver(String diagnostico) {
-        super.resolver(); // Muda o status na classe pai
-        return "Chamado de Rede #" + getId() + " resolvido. Diagnóstico: " + diagnostico;
+        super.resolver();
+        this.diagnostico = diagnostico;
+        return "Chamado de Rede #" + getId() + " resolvido com sucesso!";
     }
 
-    // Sobrescrita: Adiciona o IP ao texto da classe pai
     @Override
     public String obterDetalhes() {
-        return super.obterDetalhes() + " | IP Afetado: " + this.ipAfetado;
+        return super.obterDetalhes() + "\n" +
+                "   IP Afetado: " + this.ipAfetado + "\n" +
+                "   Diagnóstico: " + this.diagnostico;
     }
 }
